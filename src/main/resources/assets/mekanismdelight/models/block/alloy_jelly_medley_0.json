@@ -3,12 +3,6 @@
   "credit": "Made with Blockbench",
   "parent": "minecraft:block/block",
   "ambientocclusion": false,
-  "conditions": [
-    {
-      "type": "forge:mod_loaded",
-      "modid": "mekanism"
-    }
-  ],
   "textures": {
     "robit": "mekanismdelight:block/robit",
     "particle": "mekanismdelight:block/robit"
@@ -1181,5 +1175,11 @@
       ]
     }
   },
-  "loader": "mekanism:robit"
+  "loader": "mekanism:robit",
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "mekanism"
+    }
+  ]
 }

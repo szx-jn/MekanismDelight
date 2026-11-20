@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:glass_bottle"
+    },
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "tag": "c:alloys/overclocked"
+    }
+  ],
+  "result": {
+    "id": "mekanismdelight:hypercharged_shake"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:item_exists",
+      "item": "mekanismdelight:hypercharged_shake"
+    }
+  ]
+}

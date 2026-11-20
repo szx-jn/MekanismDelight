@@ -25,11 +25,12 @@ public class RadioactiveFoodItem extends ConsumableItem {
 
     @Override
     public void affectConsumer(ItemStack stack, Level level, LivingEntity consumer) {
-        consumer.getCapability(Capabilities.RADIATION_ENTITY).ifPresent(c -> c.radiate(this.radiationDose));
+        var radiation = consumer.getCapability(Capabilities.RADIATION_ENTITY);
+        if (radiation != null) radiation.radiate(this.radiationDose);
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag isAdvanced) {
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag isAdvanced) {
         MutableComponent component = Component.translatable("tooltip.mekanismdelight.radioactive_food");
         tooltip.add(component.withStyle(ChatFormatting.RED));
     }

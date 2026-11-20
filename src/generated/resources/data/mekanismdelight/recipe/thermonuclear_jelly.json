@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:glass_bottle"
+    },
+    {
+      "tag": "c:alloys/supreme"
+    }
+  ],
+  "result": {
+    "id": "mekanismdelight:thermonuclear_jelly"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:item_exists",
+      "item": "mekanismdelight:thermonuclear_jelly"
+    }
+  ]
+}

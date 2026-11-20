@@ -1,0 +1,20 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "mekanism:robit"
+    }
+  ],
+  "result": [
+    {
+      "item": {
+        "id": "mekanismdelight:formerly_robit",
+        "count": 2
+      },
+      "chance": 1.0
+    }
+  ],
+  "tool": {
+    "tag": "c:tools/knives"
+  }
+}

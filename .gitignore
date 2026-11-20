@@ -12,3 +12,6 @@ runs
 run-client
 run-server
 run-data
+run-gametest/
+run-client-check/
+.DS_Store

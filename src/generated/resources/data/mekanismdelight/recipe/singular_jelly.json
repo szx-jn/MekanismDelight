@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:glass_bottle"
+    },
+    {
+      "tag": "c:alloys/dense"
+    }
+  ],
+  "result": {
+    "id": "mekanismdelight:singular_jelly"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:item_exists",
+      "item": "mekanismdelight:singular_jelly"
+    }
+  ]
+}

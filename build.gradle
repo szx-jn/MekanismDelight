@@ -1,152 +1,45 @@
-plugins {
-    id 'eclipse'
-    id 'idea'
-    id 'maven-publish'
-    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
-    id 'org.parchmentmc.librarian.forgegradle' version '1.+'
-    id 'org.spongepowered.mixin' version '0.7.+'
-}
-
-version = mod_version
-group = mod_group_id
-
-base {
-    archivesName = "MekanismDelight-${minecraft_version}"
-}
-
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
-
-println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
-minecraft {
-    mappings channel: mapping_channel, version: mapping_version
-    copyIdeResources = true
-
+plugins { id 'java-library'; id 'net.neoforged.moddev' version '2.0.148' }
+group = 'com.mochi_753.mekanismdelight'
+version = '1.1.3-dimensionworks.1'
+base.archivesName = 'mekanismdelight'
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+repositories { mavenCentral(); maven { url = 'https://api.modrinth.com/maven' } }
+neoForge {
+    enable { version = '21.1.267'; disableRecompilation = true }
+    mods { mekanismdelight { sourceSet sourceSets.main } }
     runs {
-        configureEach {
-            workingDirectory project.file('run')
-            property 'forge.logging.markers', 'REGISTRIES'
-            property 'forge.logging.console.level', 'debug'
-
-            mods {
-                "${mod_id}" {
-                    source sourceSets.main
-                }
-            }
-        }
-
-        client {
-            workingDirectory project.file('run-client')
-            property 'forge.enabledGameTestNamespaces', mod_id
-        }
-
-        server {
-            workingDirectory project.file('run-server')
-            property 'forge.enabledGameTestNamespaces', mod_id
-            args '--nogui'
-        }
-
-        gameTestServer {
-            property 'forge.enabledGameTestNamespaces', mod_id
-        }
-
-        data {
-            workingDirectory project.file('run-data')
-            args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
-        }
+        client { client() }
+        server { server(); programArgument '--nogui' }
+        configureEach { gameDirectory = file('run'); jvmArguments.addAll('-Xmx2G','-XX:ActiveProcessorCount=2') }
     }
 }
-
-sourceSets.main.resources { srcDir 'src/generated/resources' }
-
-repositories {
-    maven {
-        name = 'CurseMaven'
-        url = 'https://cursemaven.com'
-        content {
-            includeGroup 'curse.maven'
-        }
-    }
-    maven {
-        name = 'ModMaven'
-        url = 'https://modmaven.dev/'
-    }
-}
-
 dependencies {
-    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
-
-    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor' // Mixin
-
-    implementation fg.deobf('curse.maven:farmers-delight-398521:6917255') // Farmer's Delight
-
-    // Mekanism
-    implementation fg.deobf("mekanism:Mekanism:${mekanism_version}")
-    implementation fg.deobf("mekanism:Mekanism:${mekanism_version}:additions")
-    implementation fg.deobf("mekanism:Mekanism:${mekanism_version}:generators")
-    implementation fg.deobf("mekanism:Mekanism:${mekanism_version}:tools")
-
-    implementation fg.deobf("curse.maven:mekanism-extras-1026040:6936409") // Mekanism Extras
-    implementation fg.deobf("curse.maven:iglee-library-541199:6987117") // Iglee's Library
-    implementation fg.deobf("curse.maven:evolved-mekanism-1230085:7321385") // Evolved Mekanism
-
-    runtimeOnly fg.deobf("curse.maven:jei-238222:7270446") // JEI
-    runtimeOnly fg.deobf("curse.maven:jade-324717:6855440") // Jade
-    runtimeOnly fg.deobf("curse.maven:appleskin-248787:4770828") // AppleSkin
+    implementation 'maven.modrinth:mekanism:5KzzycBT'
+    implementation 'maven.modrinth:mekanism-generators:a6gl7srE'
+    implementation 'maven.modrinth:farmers-delight:XTVZDOol'
 }
-
-tasks.named('processResources', ProcessResources).configure {
-    var replaceProperties = [
-            minecraft_version            : minecraft_version,
-            minecraft_version_range      : minecraft_version_range,
-            forge_version                : forge_version,
-            forge_version_range          : forge_version_range,
-            loader_version_range         : loader_version_range,
-            mod_id                       : mod_id,
-            mod_name                     : mod_name,
-            mod_license                  : mod_license,
-            mod_version                  : mod_version,
-            mod_authors                  : mod_authors,
-            mod_description              : mod_description,
-            farmers_delight_version_range: farmers_delight_version_range,
-            mekanism_version_range       : mekanism_version_range,
-
-    ]
-    inputs.properties replaceProperties
-
-    filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
-        expand replaceProperties + [project: project]
+sourceSets.main.resources.srcDir 'src/generated/resources'
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
+tasks.named('jar') { archiveFileName = "mekanismdelight-1.21.1-${version}.jar"; preserveFileTimestamps = false; reproducibleFileOrder = true; from('LICENSE') }
+sourceSets {
+    gameTest {
+        compileClasspath += sourceSets.main.output + sourceSets.main.compileClasspath
+        runtimeClasspath += sourceSets.main.output + sourceSets.main.runtimeClasspath
     }
 }
-
-tasks.named('jar', Jar).configure {
-    manifest {
-        attributes([
-                'Specification-Title'     : mod_id,
-                'Specification-Vendor'    : mod_authors,
-                'Specification-Version'   : '1',
-                'Implementation-Title'    : project.name,
-                'Implementation-Version'  : project.jar.archiveVersion,
-                'Implementation-Vendor'   : mod_authors,
-                'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
-        ])
-    }
-
-    finalizedBy 'reobfJar'
-}
-
-publishing {
-    publications {
-        register('mavenJava', MavenPublication) {
-            artifact jar
-        }
-    }
-    repositories {
-        maven {
-            url "file://${project.projectDir}/mcmodsrepo"
+neoForge {
+    mods { mekanismdelight { sourceSet sourceSets.gameTest } }
+    runs {
+        gameTestServer {
+            type = 'gameTestServer'
+            sourceSet = sourceSets.gameTest
+            gameDirectory = file('run-gametest')
+            systemProperty 'neoforge.enabledGameTestNamespaces', 'mekanismdelight'
         }
     }
 }
-
-tasks.withType(JavaCompile).configureEach {
-    options.encoding = 'UTF-8'
+tasks.named('runGameTestServer') {
+    def log = file('run-gametest/logs/latest.log')
+    doFirst { log.delete(); file('run-gametest').mkdirs(); file('run-gametest/server.properties').text = 'server-ip=127.0.0.1\nserver-port=25576\nonline-mode=false\nview-distance=2\nsimulation-distance=5\n' }
+    doLast { if (!log.exists() || !log.text.contains('All 6 required tests passed')) throw new GradleException('Native Mekanism Delight GameTests did not pass') }
 }

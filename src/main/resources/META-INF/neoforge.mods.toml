@@ -1,0 +1,69 @@
+modLoader = "javafml"
+loaderVersion = "[4,)"
+license = "MIT"
+
+[[mods]]
+modId = "mekanismdelight"
+version = "1.1.3-dimensionworks.1"
+displayName = "Mekanism Delight"
+authors = "Mochi_753, DimensionWorks"
+description = '''Farmer's Delight and Mekanism native integration.'''
+logoFile = "logo.png"
+logoBlur = false
+credits = "This mod includes code and assets from Mekanism, Mekanism Extras, Evolved Mekanism and Farmer's Delight, which are also licensed under the MIT License. Special thanks to the developers of these excellent mods."
+
+[[dependencies.mekanismdelight]]
+modId = "neoforge"
+type = "required"
+versionRange = "[21.1.267,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.mekanismdelight]]
+modId = "minecraft"
+type = "required"
+versionRange = "[1.21.1]"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.mekanismdelight]]
+modId = "farmersdelight"
+type = "required"
+versionRange = "[1.2,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.mekanismdelight]]
+modId = "mekanism"
+type = "optional"
+versionRange = "[10.7,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.mekanismdelight]]
+modId = "mekanismadditions"
+type = "optional"
+versionRange = "[10.7,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.mekanismdelight]]
+modId = "mekanismgenerators"
+type = "optional"
+versionRange = "[10.7,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.mekanismdelight]]
+modId = "mekanism_extras"
+type = "optional"
+versionRange = "[1.4,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.mekanismdelight]]
+modId = "evolvedmekanism"
+type = "optional"
+versionRange = "[1.2,)"
+ordering = "NONE"
+side = "BOTH"

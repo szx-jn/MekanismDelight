@@ -1,0 +1,30 @@
+{
+  "type": "mekanism:reaction",
+  "duration": 100,
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:item_exists",
+      "item": "mekanismdelight:polonium_ice_cream"
+    }
+  ],
+  "chemical_input": {
+    "amount": 1000,
+    "chemical": "mekanism:polonium"
+  },
+  "fluid_input": {
+    "amount": 1000,
+    "tag": "minecraft:water"
+  },
+  "chemical_output": {
+    "amount": 1000,
+    "id": "mekanism:spent_nuclear_waste"
+  },
+  "item_input": {
+    "item": "minecraft:glass_bottle",
+    "count": 1
+  },
+  "item_output": {
+    "id": "mekanismdelight:polonium_ice_cream",
+    "count": 1
+  }
+}

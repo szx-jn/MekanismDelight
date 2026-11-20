@@ -11,8 +11,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.living.MobEffectEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.Configuration;
@@ -36,11 +34,11 @@ public class AlloyShakeItem extends DrinkableItem {
     @Override
     public void affectConsumer(ItemStack stack, Level level, LivingEntity consumer) {
         Iterator<MobEffectInstance> effectIterator = consumer.getActiveEffects().iterator();
-        ArrayList<MobEffect> compatibleEffects = new ArrayList<>();
+        ArrayList<net.minecraft.core.Holder<MobEffect>> compatibleEffects = new ArrayList<>();
 
         while (effectIterator.hasNext()) {
             MobEffectInstance effect = effectIterator.next();
-            if (effect.getEffect().getCategory().equals(MobEffectCategory.HARMFUL) && effect.isCurativeItem(new ItemStack(Items.MILK_BUCKET))) {
+            if (effect.getEffect().value().getCategory().equals(MobEffectCategory.HARMFUL) && effect.getCures().contains(net.neoforged.neoforge.common.EffectCures.MILK)) {
                 compatibleEffects.add(effect.getEffect());
             }
         }
@@ -58,17 +56,17 @@ public class AlloyShakeItem extends DrinkableItem {
 
         for (int i = 0; i < removalEffectsCount && !compatibleEffects.isEmpty(); i++) {
             int effectIndex = level.random.nextInt(compatibleEffects.size());
-            MobEffect effect = compatibleEffects.remove(effectIndex);
+            net.minecraft.core.Holder<MobEffect> effect = compatibleEffects.remove(effectIndex);
             MobEffectInstance effectInstance = consumer.getEffect(effect);
 
-            if (effectInstance != null && !MinecraftForge.EVENT_BUS.post(new MobEffectEvent.Remove(consumer, effectInstance))) {
+            if (effectInstance != null) {
                 consumer.removeEffect(effectInstance.getEffect());
             }
         }
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag isAdvanced) {
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag isAdvanced) {
         if (Configuration.FOOD_EFFECT_TOOLTIP.get()) {
             MutableComponent component = switch (this.tier) {
                 case INFUSED -> Component.translatable("tooltip.mekanismdelight.alloy_shake.1");

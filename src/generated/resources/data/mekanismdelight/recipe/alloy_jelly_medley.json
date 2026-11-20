@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "mekanism:robit"
+    },
+    {
+      "tag": "c:alloys/advanced"
+    },
+    {
+      "tag": "c:alloys/elite"
+    },
+    {
+      "tag": "c:alloys/ultimate"
+    }
+  ],
+  "result": {
+    "id": "mekanismdelight:alloy_jelly_medley"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:item_exists",
+      "item": "mekanismdelight:alloy_jelly_medley"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_fusion_fuel": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "mekanismgenerators:fusion_fuel_bucket"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "mekanismdelight:cooking/dt_drink"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_fusion_fuel",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "mekanismdelight:cooking/dt_drink"
+    ]
+  },
+  "sends_telemetry_event": true
+}

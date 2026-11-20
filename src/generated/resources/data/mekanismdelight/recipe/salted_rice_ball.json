@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "farmersdelight:cooked_rice"
+    },
+    {
+      "tag": "c:dusts/salt"
+    }
+  ],
+  "result": {
+    "count": 2,
+    "id": "mekanismdelight:salted_rice_ball"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:item_exists",
+      "item": "mekanismdelight:salted_rice_ball"
+    }
+  ]
+}

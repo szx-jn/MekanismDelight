@@ -1,0 +1,22 @@
+{
+  "type": "mekanism:injecting",
+  "output": {
+    "id": "mekanismdelight:fissile_fuel_drink",
+    "count": 1
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:item_exists",
+      "item": "mekanismdelight:fissile_fuel_drink"
+    }
+  ],
+  "chemical_input": {
+    "amount": 1,
+    "chemical": "mekanism:fissile_fuel"
+  },
+  "item_input": {
+    "item": "minecraft:glass_bottle",
+    "count": 1
+  },
+  "per_tick_usage": true
+}

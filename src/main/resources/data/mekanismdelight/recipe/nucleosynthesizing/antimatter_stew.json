@@ -1,0 +1,23 @@
+{
+  "type": "mekanism:nucleosynthesizing",
+  "duration": 24000,
+  "output": {
+    "id": "mekanismdelight:antimatter_stew",
+    "count": 1
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:item_exists",
+      "item": "mekanismdelight:antimatter_stew"
+    }
+  ],
+  "chemical_input": {
+    "amount": 10000,
+    "chemical": "mekanism:antimatter"
+  },
+  "item_input": {
+    "item": "minecraft:mushroom_stew",
+    "count": 1
+  },
+  "per_tick_usage": false
+}
